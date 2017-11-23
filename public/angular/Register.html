@@ -30,107 +30,88 @@
 				<div id="signup">
 					<h2>Sign up</h2>
 					<form>
+						<table>
+							<tr>
+								<td>Email :</td>
+								<td><input type="text" ng-model="email"
+									placeholder="Enter Email" /></td>
+							</tr>
+							<tr>
+								<td>Password :</td>
+								<td><input type="password" ng-model="password"
+									placeholder="Enter password" /></td>
+							</tr>
+							<tr>
+								<td>First Name :</td>
+								<td><input type="text" ng-model="fname"
+									placeholder="Enter First Name" /></td>
+							</tr>
+							<tr>
+								<td>Last Name :</td>
+								<td><input type="text" ng-model="lname"
+									placeholder="Enter Last Name" /></td>
+							</tr>
 
-						<CENTER>
-							<table>
-								<tr>
-									<td>Email :</td>
-									<td><input type="text" ng-model="email"
-										placeholder="Enter Email" /></td>
-								</tr>
-								<tr>
-									<td>Password :</td>
-									<td><input type="text" ng-model="username"
-										placeholder="Enter password" /></td>
-								</tr>
-								<tr>
-									<td>First Name :</td>
-									<td><input type="text" ng-model="fname"
-										placeholder="Enter First Name" /></td>
-								</tr>
-								<tr>
-									<td>Last Name :</td>
-									<td><input type="text" ng-model="lname"
-										placeholder="Enter Last Name" /></td>
-								</tr>
-
-								<tr>
-									<td>Date of Birth :</td>
-									<td><input type="text" ng-model="DOB"
-										placeholder="Enter Date of Birth" /></td>
-								</tr>
-								<tr>
-									<td>Sex :</td>
-									<td><input type="text" ng-model="sex"
-										placeholder="Enter Sex" /></td>
-								</tr>
-								<tr>
-									<td>
-										<button type="submit" class="btn btn-primary"
-											ng-click="register_User()">Register 
-											</button>
-									</td>
-										<td>
-										<button type="reset" ng-click="reset">Clear</button>
-									</td>
-								</tr>
-							</table>
-						</CENTER>
+							<tr>
+								<td>Date of Birth (eg. 31-03-1991):</td>
+								<td><input type="text" ng-model="DOB"
+									placeholder="Enter Date of Birth" /></td>
+							</tr>
+							<tr>
+								<td>Sex :</td>
+								<td><input type="text" ng-model="sex"
+									placeholder="Enter Sex" /></td>
+							</tr>
+							<tr>
+								<td>
+									<button type="submit" class="btn btn-primary"
+										ng-click="register_User()">Register</button>
+								</td>
+								<td>
+									<button type="reset" ng-click="reset">Clear</button>
+								</td>
+							</tr>
+						</table>
 					</form>
 				</div>
 
 			</div>
 
-			<p id="disclaimer">Disclaimer!</p>
-		</div>
-		<div id="footer">
-			<p>&copy; Copyright 2010 Bibliography Productions</p>
 		</div>
 	</div>
-	<script type="text/javascript">
-		function verify() /*function to check userid & password*/
-		{
-			var error_msg = "";
-			var f = document.forms["register"];
-			var emailregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-			var name = /^[a-zA-Z][a-zA-Z\\s]+$/;
-			if (f.email.value.length === 0) {
-				error_msg += "Please Enter Email\n";
-			}
-			if (f.pwd.value.length === 0) {
-				error_msg += "Please Enter Password\n";
-			}
-			if (f.fname.value.length === 0) {
-				error_msg += "Please Enter first name\n";
-			}
-			if (f.lname.value.length === 0) {
-				error_msg += "Please Enter Last Name\n";
-			}
-			if (f.dob.value.length === 0) {
-				error_msg += "Please Enter Date of Birth\n";
-			}
-			if (f.sex.value.length === 0) {
-				error_msg += "Please Enter You Gender\n";
-			}
-			if (emailregex.test(f.email.value) === false) {
-				error_msg += "Incorrect email was entered\n";
-			}
-			if (name.test(f.lname.value) === false) {
-				error_msg += "Last name will accept only alphabets\n";
-			}
-			if (name.test(f.fname.value) === false) {
-				error_msg += "First name will accept only alphabets\n";
-			}
-
-			if (error_msg.length !== 0) {
-				alert(error_msg);
-				return false;
-			} else {
-				return true;
-
-			}
-			/*the following code checkes whether the entered userid and password are matching*/
-		}
-	</script>
 </body>
+  <script>
+        var app = angular.module('myApp', []);
+        app.controller('view1Ctrl', function($scope, $http,$window) {
+        		
+        	
+        	      	$scope.register_User = function() {
+        	      		//alert("****************************");
+            	 		//$scope.text_result="Running EWR for "+ "[ "+$scope.data.model + " ]"+" Please wait....." ;
+            	 		var data = {email:$scope.email,password:$scope.password,fname:$scope.fname,lname:$scope.lname,DOB:$scope.DOB,sex:$scope.sex,}
+            	 		//if($scope.data.model == " ")
+            	 	//		{
+            			//var data=$scope.data.model;
+            			//alert($scope.email);
+            	 	//		}
+            	 	//	else{
+            		    $http.post('/registerUser',data).success(function(data) {
+            		    	//$scope.text_result="\n" +data;
+            		    	if(data=='valid')
+						{
+	         		alert('valid');
+            		    	  $window.location.href = "/home";
+            			}
+            		    	else
+        	        		{
+        	        		alert('Invalid Cloud User.Please try again');
+        	        		 $window.location.href = "/Register.html";
+        	        		} 
+        	            console.log("posted successfully");
+        	        }).error(function(data) {
+        	            console.error("error in posting");
+        	        })
+        	    }	    
+        	});
+        </script>
 </html>
