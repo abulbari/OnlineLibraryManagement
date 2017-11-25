@@ -40,6 +40,8 @@ function checkRegisteredUsers(email, password, fname, lname, sex, dob, res)
 			console.log("User Exist, Back to Register page");
 			//need alert window + redirect to register page
 			//redirect to register page
+			var srting = "User "+email+" Already Exist, Choose Different Email";
+			res.send("User Already Exists");
 		}
 		else{
 			// insert into table
@@ -49,8 +51,9 @@ function checkRegisteredUsers(email, password, fname, lname, sex, dob, res)
 					throw err;
 				console.log("1 row created");
 			});
-			console.log("User does not Exist, Registerd it then back to login page"+result);
+			console.log("User does not Exist, Registerd it then back to login page" + result);
 			//need alert window + redirect to Login page
+			res.send("User Registered");
 		}
 	});
 }

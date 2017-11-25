@@ -80,38 +80,41 @@
 		</div>
 	</div>
 </body>
-  <script>
-        var app = angular.module('myApp', []);
-        app.controller('view1Ctrl', function($scope, $http,$window) {
-        		
-        	
-        	      	$scope.register_User = function() {
-        	      		//alert("****************************");
-            	 		//$scope.text_result="Running EWR for "+ "[ "+$scope.data.model + " ]"+" Please wait....." ;
-            	 		var data = {email:$scope.email,password:$scope.password,fname:$scope.fname,lname:$scope.lname,DOB:$scope.DOB,sex:$scope.sex,}
-            	 		//if($scope.data.model == " ")
-            	 	//		{
-            			//var data=$scope.data.model;
-            			//alert($scope.email);
-            	 	//		}
-            	 	//	else{
-            		    $http.post('/registerUser',data).success(function(data) {
-            		    	//$scope.text_result="\n" +data;
-            		    	if(data=='valid')
-						{
-	         		alert('valid');
-            		    	  $window.location.href = "/home";
-            			}
-            		    	else
-        	        		{
-        	        		alert('Invalid Cloud User.Please try again');
-        	        		 $window.location.href = "/Register.html";
-        	        		} 
-        	            console.log("posted successfully");
-        	        }).error(function(data) {
-        	            console.error("error in posting");
-        	        })
-        	    }	    
-        	});
-        </script>
+<script>
+	var app = angular.module('myApp', []);
+	app.controller('view1Ctrl', function($scope, $http, $window) {
+
+		$scope.register_User = function() {
+			//alert("****************************");
+			//$scope.text_result="Running EWR for "+ "[ "+$scope.data.model + " ]"+" Please wait....." ;
+			var data = {
+				email : $scope.email,
+				password : $scope.password,
+				fname : $scope.fname,
+				lname : $scope.lname,
+				DOB : $scope.DOB,
+				sex : $scope.sex,
+			}
+			//if($scope.data.model == " ")
+			//		{
+			//var data=$scope.data.model;
+			//alert($scope.email);
+			//		}
+			//	else{
+			$http.post('/registerUser', data).success(function(data) {
+				//$scope.text_result="\n" +data;
+				if (data == 'User Already Exists') {
+					alert('User Already Exists');
+					$window.location.href = "/Register.html";
+				} else {
+					alert('User Registered');
+					$window.location.href = "/Login.html";
+				}
+				console.log("posted successfully");
+			}).error(function(data) {
+				console.error("error in posting");
+			})
+		}
+	});
+</script>
 </html>
