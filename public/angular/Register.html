@@ -33,7 +33,7 @@
 						<table>
 							<tr>
 								<td>Email :</td>
-								<td><input type="text" ng-model="email"
+								<td><input type="email" ng-model="email" 
 									placeholder="Enter Email" /></td>
 							</tr>
 							<tr>
@@ -54,13 +54,15 @@
 
 							<tr>
 								<td>Date of Birth (eg. 31-03-1991):</td>
-								<td><input type="text" ng-model="DOB"
+								<td><input type="date" ng-model="DOB"
 									placeholder="Enter Date of Birth" /></td>
 							</tr>
 							<tr>
 								<td>Sex :</td>
-								<td><input type="text" ng-model="sex"
-									placeholder="Enter Sex" /></td>
+								<td><input type="radio" ng-model="sex" value="male">
+									Male<br> <input type="radio" ng-model="sex" value="female">
+									Female<br> <input type="radio" ng-model="sex"
+									value="other"> Other</td>
 							</tr>
 							<tr>
 								<td>

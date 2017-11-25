@@ -10,7 +10,6 @@ var util = require('util');
 function checkRegisteredUsers(email, password, fname, lname, sex, dob, res)
 {
 	// Create connections with MySql
-	
 	var con = mysql.createConnection({
 		host : "localhost",
 		user : "root",
@@ -38,14 +37,12 @@ function checkRegisteredUsers(email, password, fname, lname, sex, dob, res)
 		if(result[0] != null){
 			//user exists
 			console.log("User Exist, Back to Register page");
-			//need alert window + redirect to register page
-			//redirect to register page
-			var srting = "User "+email+" Already Exist, Choose Different Email";
 			res.send("User Already Exists");
 		}
 		else{
 			// insert into table
-			var sql = util.format('INSERT INTO users (Email, Password, FirstName, LastName, Sex, DateOfBirth) VALUES ("%s","%s","%s","%s","%s","%s")',email,password, fname, lname, sex, dob);
+			var encPass = enp.encrypt(password);
+			var sql = util.format('INSERT INTO users (Email, Password, FirstName, LastName, Sex, DateOfBirth) VALUES ("%s","%s","%s","%s","%s","%s")',email,encPass, fname, lname, sex, dob);
 			con.query(sql, function(err, result) {
 				if (err)
 					throw err;
