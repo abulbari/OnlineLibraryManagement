@@ -31,6 +31,7 @@ app.post('/registerUser', function(req, res) {
 	 var sex=req.body.sex;
 	 var dob=req.body.DOB;
 	 
+	 // Client Side Validation.
 	 //req.assert('email', 'A vlaid email is required').isEmail();
 	 //req.assert('fname', 'First name is required').notEmpty();
 	 reg.checkRegisteredUsers(email,password,fname,lname,sex,dob,res);
