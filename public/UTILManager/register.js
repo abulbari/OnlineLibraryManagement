@@ -1,85 +1,49 @@
 'use strict';
-var enp = require('./encrypt_decrpt.js'); 
+var enp = require('./encrypt_decrpt.js');
 var fs = require('fs');
-var uName = '';
-var passWd = '';
+var mysql = require('mysql');
+var util = require('util');
 
-function storeRegisteredUser(email,password,fname,lname,sex,dob,res)
+function checkRegisteredUsers(email, password, fname, lname, sex, dob, res)
 {
-	var JsonData=
-	{
-			Email: email,
-			Fname: fname,
-			Lname: lname,
-			Password: encryptedPass,
-			Sex: sex,
-			Dob:dob,
-			
-	}
-	fs.writeFile("C:\\occ_files\\registeredUsers\\"+filename, JSON.stringify(JsonData), (err) => {
-		if (err) 
-		{
-			console.error(err);
-			return;
-		};
-		console.log("File has been created");
+	// Create connections with MySql
+	
+	var con = mysql.createConnection({
+		host : "localhost",
+		user : "root",
+		password : "Almas1234",
+			database: "test"
 	});
-} 
-function checkRegisteredUsers(filename,email,password,username,response){
-	if (fs.existsSync("C:\\occ_files\\registeredUsers\\"+filename)) {
-	console.log("User is registered, Please login with CCSSO account");
-	// user is valid store username
-	console.log("when already registered "+ uName);
-	response.send("valid");
-	} else{
-		 console.log("when new user "+ username);
-		checkValidUser(filename,email,password,username,response);
-	}
-}
+	// Check if the user exist in the DB
 
-function checkValidUser(filename,email,passwd,username,response){
-	var hostname = "cloud.ams03.isc4sb.com";
-	var host = {
-			server:        {     
-				host: hostname,
-				userName: username,
-				password: passwd,
-			},
-			commands: [ "pwd" ],
-			 msg: {
-			        send: function (message) {
-			            console.log(message);
-			        }
-			    },
-			    connectedMessage: "Connected",
-			    readyMessage: "Ready",
-			    closedMessage: "Completed",
-			
-	};
-	
-	var SSH2Shell = require ('ssh2shell'),
-	// Create a new instance passing in the host object
-	 SSH = new SSH2Shell(host);
-	
-	SSH.on('commandProcessing',function (command, response, sshObj, stream) {
-	    console.log("commandProcessingEvent command: " + command + " response:" + response);
-	}).on('commandTimeout',function( command, response, sshObj, stream, connection ) {
-	   console.log("CommandTimeout: command: "+command + " response:"+response);
-	 })
-	.on('commandComplete', function (command) {
-	    console.log("CommandComleteEvent command: " + command );
-		var encryptedPass = enp.encrypt(passwd);
-		console.log("when Valid "+ uName);
-		storeRegisteredUser(filename,email,username,encryptedPass,response);
-	    response.send("valid");
-	}).on('end', function (sessionText, sshObj) {
-	    console.log("End event: " + sessionText);
-	}).on('error', function(err) {
-		  console.log('Connection :: error :: ' + err);
-		  response.send("Invalid");
+	// Create Connection
+	con.connect(function(err) {
+				if (err)
+					throw err;
+				console.log("Connected!");
+			});
+	//Check if email exists
+	var sql = util.format('select * from users where Email = ("%s")',email);
+	con.query(sql, function(err, result) {
+		if (err)
+			throw err;
+		
+		if(result){
+			//user exists
+		}
+		else{
+			//insert into table
+		}
 	});
-	SSH.connect();
+	
+	if(re)
+	// insert into table
+	var sql = util.format('INSERT INTO users (Email, Password, FirstName, LastName, Sex, DateOfBirth) VALUES ("%s","%s","%s","%s","%s","%s")',email,password, fname, lname, sex, dob);
+	con.query(sql, function(err, result) {
+		if (err)
+			throw err;
+		console.log("1 row created");
+	});
+	
 }
 exports.checkRegisteredUsers=checkRegisteredUsers;
-exports.uName=uName;
-exports.passWd=passWd;

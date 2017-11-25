@@ -5,7 +5,7 @@ var express = require('express'),
     //expressValidator=require('express-validator'),
     bodyParser= require('body-parser');
 
-var reg= require("./public/UTILManager/register.js");
+var reg=require("./public/UTILManager/register.js");
 var fs = require('fs');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 var app = express();
@@ -33,7 +33,6 @@ app.post('/registerUser', function(req, res) {
 	 
 	 //req.assert('email', 'A vlaid email is required').isEmail();
 	 //req.assert('fname', 'First name is required').notEmpty();
-	 
 	 reg.checkRegisteredUsers(email,password,fname,lname,sex,dob,res);
 
 } );
