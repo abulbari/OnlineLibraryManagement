@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Registration Page</title>
+<title>Login Page</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
 <link rel="stylesheet" href="css/base.css" type="text/css"
@@ -17,18 +17,18 @@
 			<div id="header">
 				<br /> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <img
-					src="image/register_button.png" alt="" width="500" height="50">
+					src="image/login_banner(1).jpg" alt="" width="500" height="50">
 				<br /> <br />
 				<h1>
 					&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp; Welcome To Registration Page!!!<br /> <br />
+					&nbsp;&nbsp;&nbsp;&nbsp; Welcome To Login Page!!!<br /> <br />
 				</h1>
 			</div>
 			<br /> <br /> <br /> <br />
 			<div id="content">
 				<br />
 				<div id="signup">
- 					<h2>Sign up</h2>
+ 					<h2>Login</h2>
 					<form>
 						<table>
 							<tr>
@@ -40,37 +40,14 @@
 								<td>Password :</td>
 								<td><input type="password" ng-model="password"
 									placeholder="Enter password" /></td>
-							</tr>
-							<tr>
-								<td>First Name :</td>
-								<td><input type="text" ng-model="fname"
-									placeholder="Enter First Name" /></td>
-							</tr>
-							<tr>
-								<td>Last Name :</td>
-								<td><input type="text" ng-model="lname"
-									placeholder="Enter Last Name" /></td>
-							</tr>
-
-							<tr>
-								<td>Date of Birth (eg. 31-03-1991):</td>
-								<td><input type="date" ng-model="DOB"
-									placeholder="Enter Date of Birth" /></td>
-							</tr>
-							<tr>
-								<td>Sex :</td>
-								<td><input type="radio" ng-model="sex" value="male">
-									Male<br> <input type="radio" ng-model="sex" value="female">
-									Female<br> <input type="radio" ng-model="sex"
-									value="other"> Other</td>
-							</tr>
+							</tr>							
 							<tr>
 								<td>
 									<button type="submit" class="btn btn-primary"
-										ng-click="register_User()">Register</button>
+										ng-click="log_User()">Login</button>
 								</td>
 								<td>
-									<button type="reset" ng-click="reset">Clear</button>
+									<button type="submit" ng-click="register">Register</button>
 								</td>
 							</tr>
 						</table>
