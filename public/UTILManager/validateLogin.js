@@ -7,7 +7,7 @@ var mysql = require('mysql');
 var util = require('util');
 //var app = express();
 
-function checkRegisteredUsers(email, password, fname, lname, sex, dob, res)
+function authRegisteredUsers(email, password,res)
 {
 	// Create connections with MySql
 	var con = mysql.createConnection({
@@ -35,23 +35,20 @@ function checkRegisteredUsers(email, password, fname, lname, sex, dob, res)
 		console.log(result[0]);
 		
 		if(result[0] != null){
-			//user exists
-			console.log("User Exist, Back to Register page");
-			res.send("User Already Exists");
+			//It return some row - check username password matches.
+			if(result[0].Email == email && result[0].Password == password){
+				console.log("User Authenticated");
+				res.send("Authenticated");				
+			}
+			else {
+				console.log("Email and Password doesnot matches, Please check");
+				res.send("misMatches");				
+			}
 		}
 		else{
-			// insert into table
-			//var encPass = enp.encrypt(password);
-			var sql = util.format('INSERT INTO users (Email, Password, FirstName, LastName, Sex, DateOfBirth) VALUES ("%s","%s","%s","%s","%s","%s")',email,password, fname, lname, sex, dob);
-			con.query(sql, function(err, result) {
-				if (err)
-					throw err;
-				console.log("1 row created");
-			});
-			console.log("User does not Exist, Registerd it then back to login page" + result);
-			//need alert window + redirect to Login page
-			res.send("User Registered");
+			console.log("User does not Exist, Registerd please");
+			res.send("notExist");
 		}
 	});
 }
-exports.checkRegisteredUsers=checkRegisteredUsers;
+exports.authRegisteredUsers=authRegisteredUsers;

@@ -30,6 +30,7 @@
 				<div id="signup">
  					<h2>Sign up</h2>
 					<form>
+					      		 <CENTER>
 						<table>
 							<tr>
 								<td>Email :</td>
@@ -74,6 +75,7 @@
 								</td>
 							</tr>
 						</table>
+						      		 </CENTER>
 					</form>
 				</div>
 
@@ -106,7 +108,7 @@
 			$http.post('/registerUser', data).success(function(data) {
 				//$scope.text_result="\n" +data;
 				if (data == 'User Already Exists') {
-					alert('User Already Exists');
+					alert('User Already Exists, Either go Login Page if already Registered or Choose Different email if not registered');
 					$window.location.href = "/Register.html";
 				} else {
 					alert('User Registered');

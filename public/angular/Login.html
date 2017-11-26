@@ -28,34 +28,36 @@
 			<div id="content">
 				<br />
 				<div id="signup">
- 					<h2>Login</h2>
+					<h2>Login</h2>
 					<form>
-						<table>
-							<tr>
-								<td>Email :</td>
-								<td><input type="email" ng-model="email" 
-									placeholder="Enter Email" /></td>
-							</tr>
-							<tr>
-								<td>Password :</td>
-								<td><input type="password" ng-model="password"
-									placeholder="Enter password" /></td>
-							</tr>							
-							<tr>
-								<td>
-									<button type="submit" class="btn btn-primary"
-										ng-click="log_User()">Login</button>
-								</td>
-								<td>
-									<button type="submit" ng-click="register">Register</button>
-								</td>
-							</tr>
-						</table>
+						<CENTER>
+							<table>
+								<tr>
+									<td>Email :</td>
+									<td><input type="email" ng-model="email"
+										placeholder="Enter Email" /></td>
+								</tr>
+								<tr>
+									<td>Password :</td>
+									<td><input type="password" ng-model="password"
+										placeholder="Enter password" /></td>
+								</tr>
+								<tr>
+									<td>
+										<button type="submit" class="btn btn-primary"
+											ng-click="log_User()">Login</button>
+									</td>
+									<td>
+										<button>
+											<a href="Register.html">Register</a>
+										</button>
+									</td>
+								</tr>
+							</table>
+						</CENTER>
 					</form>
 				</div>
-
 			</div>
-
 		</div>
 	</div>
 </body>
@@ -63,31 +65,22 @@
 	var app = angular.module('myApp', []);
 	app.controller('view1Ctrl', function($scope, $http, $window) {
 
-		$scope.register_User = function() {
-			//alert("****************************");
-			//$scope.text_result="Running EWR for "+ "[ "+$scope.data.model + " ]"+" Please wait....." ;
+		$scope.log_User = function() {
 			var data = {
 				email : $scope.email,
 				password : $scope.password,
-				fname : $scope.fname,
-				lname : $scope.lname,
-				DOB : $scope.DOB,
-				sex : $scope.sex,
 			}
-			//if($scope.data.model == " ")
-			//		{
-			//var data=$scope.data.model;
-			//alert($scope.email);
-			//		}
-			//	else{
-			$http.post('/registerUser', data).success(function(data) {
+			$http.post('/loginUser', data).success(function(data) {
 				//$scope.text_result="\n" +data;
-				if (data == 'User Already Exists') {
-					alert('User Already Exists');
-					$window.location.href = "/Register.html";
-				} else {
-					alert('User Registered');
+				if (data == 'Authenticated') {
+					alert('User Authenticated');
+					$window.location.href = "/Home.html";
+				} else if (data == 'misMatches') {
+					alert('Email and Password doesnot matches, Please check');
 					$window.location.href = "/Login.html";
+				} else if (data == 'notExist') {
+					alert('User does not Exist, Registerd please');
+					$window.location.href = "/Register.html";
 				}
 				console.log("posted successfully");
 			}).error(function(data) {
