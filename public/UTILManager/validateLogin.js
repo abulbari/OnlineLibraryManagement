@@ -6,9 +6,38 @@ var fs = require('fs');
 var mysql = require('mysql');
 var util = require('util');
 //var app = express();
+var userEmail;
+
+function getUserDetails(res){
+	
+	console.log("Email = "+userEmail);
+	// Create connections with MySql
+	var con = mysql.createConnection({
+		host : "localhost",
+		user : "root",
+		password : "Almas1234",
+			database: "test"
+	});
+	// Create Connection
+	con.connect(function(err) {
+				if (err)
+					throw err;
+				console.log("Connected!");
+			});
+	var sql = util.format('select * from users where Email=("%s")',userEmail);
+	con.query(sql, function(err, result, fields) {
+		if (err)
+			throw err;
+		
+		//Return if users exists in the DB.
+		console.log(result[0]);
+		res.send(result[0]);
+	});
+}
 
 function authRegisteredUsers(email, password,res)
 {
+	userEmail=email;
 	// Create connections with MySql
 	var con = mysql.createConnection({
 		host : "localhost",
@@ -52,3 +81,5 @@ function authRegisteredUsers(email, password,res)
 	});
 }
 exports.authRegisteredUsers=authRegisteredUsers;
+exports.getUserDetails=getUserDetails;
+exports.userEmail=userEmail;

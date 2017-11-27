@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Login Page</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+<link rel="stylesheet" type="text/css" href="mainstylesheet.css" />
+</head>
+<body ng-app="myApp">
+		<div id="account" align="right">
+			<a href="myAccount.html"> My Account</a> &nbsp;|&nbsp; <a
+				href="logout.html">Logout</a>
+		</div>
+		<div class="userDetails" ng-controller="name" data-ng-init="getName()">
+			<h1 align="Center">
+			Welcome {{firstName}} {{lastName}} To BibMan Library Management</h1>
+		</div>
+</body>
+
+<script>
+var app = angular.module('myApp', []);
+
+//Controler to display User name
+app.controller('name', function($scope, $http) {
+	$scope.getName = function() {
+		
+		$scope.firstName = "";
+		$scope.lastName = "";
+		//Get Logged in user firstname and last name
+		$http.get('/getUserDetails').success(function(data) {
+			alert(data);
+ 			$scope.firstName = data.FirstName;
+			$scope.lastName = data.LastName;
+			
+		}).error(function(data) {
+
+			console.error("error in posting");
+		})
+	} 
+});
+</script>

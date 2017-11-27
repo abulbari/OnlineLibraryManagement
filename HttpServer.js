@@ -48,11 +48,12 @@ app.get('/login', function(req, res) {
 app.post('/loginUser', function(req, res) {
 	 var email=req.body.email;
 	 var password=req.body.password;
-	 
-	 // Client Side Validation.
-	 //req.assert('email', 'A vlaid email is required').isEmail();
-	 //req.assert('fname', 'First name is required').notEmpty();
 	 login.authRegisteredUsers(email,password,res);
+} );
+
+//function called when button register clicks
+app.get('/getUserDetails', function(req, res) {
+	 login.getUserDetails(res);
 } );
 
 http.createServer(app).listen(app.get('port'), function() {
