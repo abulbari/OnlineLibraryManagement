@@ -11,18 +11,18 @@ and open the template in the editor.
 #main
 {
     background-color: cornflowerblue;
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     padding-top: 20px;
     height:780px;
-    width:1220px;
+    width:1460px;
 }
 #leftForm
 {
-    background-color: #ffff99;
+    background-color: gray;
     height:773px;
-    width:200px;
+    width:270px;
     float:left;
     padding-bottom: 3px;
     padding-left: 5px;
@@ -33,9 +33,9 @@ and open the template in the editor.
 }
 #rightForm
 {
-    background-color: #ffff99;
+    background-color: threedlightshadow;
     height:778px;
-    width:1000px;
+    width:1150px;
     float:right;
 
 }

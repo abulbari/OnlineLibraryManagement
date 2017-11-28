@@ -2,41 +2,143 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Login Page</title>
+<title>Home Page</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
-<link rel="stylesheet" type="text/css" href="mainstylesheet.css" />
+<link rel="stylesheet" type="text/css" href="css/mainstylesheet.css" />
 </head>
 <body ng-app="myApp">
-		<div id="account" align="right">
-			<a href="myAccount.html"> My Account</a> &nbsp;|&nbsp; <a
-				href="logout.html">Logout</a>
+
+	<div id="account" align="right">
+		<a href="myAccount.html"> My Account</a> &nbsp;|&nbsp; <a
+			href="logout.html">Logout</a>
+	</div>
+	<div class="userDetails" ng-controller="name" data-ng-init="getName()">
+		<h1 align="Center">Welcome {{firstName}} {{lastName}} To BibMan
+			Library Management</h1>
+	</div>
+	<div id="main">
+		<!-- Left Hand Panel  -->
+		<div id="leftForm">
+			<!-- Lib Action  -->
+			<div class="changeLibrary" ng-controller="changeLib">
+				<fieldset>
+					<legend>
+						<b align="center">Change Library</b>
+					</legend>
+					<form>
+						<select name="ChangeActiveLibrary">
+							<option selected="yes">All</option>
+						</select> <br /> <br /> New Name: <input type="text" name="newname">
+						<br /> <br />
+						<button type="submit" ng-click="Rename_Active_Library()">Rename
+							Active Library</button>
+						<button type="submit" ng-click="Change_Active_Library()">Change
+							Active Library</button>
+						<button type="submit" ng-click="Delete_Active_Library()">Delete
+							Active Library</button>
+					</form>
+				</fieldset>
+			</div>
+
+			<!-- Lib Create  -->
+			<div class="CreateLibrary" ng-controller="CreateLib">
+				<fieldset>
+					<legend>
+						<b align="center">Create New Library</b>
+					</legend>
+					<form>
+						New Name: <input type="text" ng-model="newLibName"> <br />
+						<br />
+						<button type="submit" ng-click="createLibrary()">Create
+							New Library</button>
+					</form>
+				</fieldset>
+			</div>
+
+			<!-- Lib Share  -->
+			<div class="shareLibrary" ng-controller="shareLib">
+				<fieldset>
+					<legend>
+						<b >Share Lib</b>
+					</legend>
+					<form>
+						<br>Library Name: <br><input type="text" ng-model="newLibName"> <br />
+						<br /> Email ID: <br><input type="email" ng-model="email"> <br />
+						<br />
+						<button type="submit" ng-click="shareLibrary()">Create
+							New Library</button>
+					</form>
+				</fieldset>
+			</div>
+			
+			<!-- Lib Search  -->
+			<div class="searchLibrary" ng-controller="searchLib">
+				<fieldset>
+				<legend><b>Search Libraries</b></legend>
+                    <form>
+                        <br>Author Name: </br><input type="text" ng-model="Author"><br>
+                        <br>Title: </br><input type="text" ng-modal="Title"><br>
+                        </br>
+                        Libraries to Search:
+                        <br/>
+                        <select name="SearchLibrary">
+                            <option selected="yes">All References</option>
+                        </select>
+                        <br/><br/>
+                        <button type="submit" ng-click="SearchLibrary()"> Search Library</button>
+                    </form>
+				</fieldset>
+			</div>
+
 		</div>
-		<div class="userDetails" ng-controller="name" data-ng-init="getName()">
-			<h1 align="Center">
-			Welcome {{firstName}} {{lastName}} To BibMan Library Management</h1>
+		<div id="rightForm">
+			<div class="mainBody" ng-controller="mainBody"
+				data-ng-init="mainBody()" align="right">
+				<h2 align="center">Main Body</h2>
+			</div>
 		</div>
+	</div>
+
 </body>
 
 <script>
-var app = angular.module('myApp', []);
+	var app = angular.module('myApp', []);
 
-//Controler to display User name
-app.controller('name', function($scope, $http) {
-	$scope.getName = function() {
-		
-		$scope.firstName = "";
-		$scope.lastName = "";
-		//Get Logged in user firstname and last name
-		$http.get('/getUserDetails').success(function(data) {
-			alert(data);
- 			$scope.firstName = data.FirstName;
-			$scope.lastName = data.LastName;
-			
-		}).error(function(data) {
+	//Controler to display User name
+	app.controller('name', function($scope, $http) {
+		$scope.getName = function() {
 
-			console.error("error in posting");
-		})
-	} 
-});
+			$scope.firstName = "";
+			$scope.lastName = "";
+			//Get Logged in user firstname and last name
+			$http.get('/getUserDetails').success(function(data) {
+				//alert(data);
+				$scope.firstName = data.FirstName;
+				$scope.lastName = data.LastName;
+
+			}).error(function(data) {
+
+				console.error("error in posting");
+			})
+		}
+	});
+
+	app.controller('ChangeLib', function($scope, $http) {
+		$scope.getName = function() {
+
+			$scope.firstName = "";
+			$scope.lastName = "";
+			//Get Logged in user firstname and last name
+			$http.get('/getUserDetails').success(function(data) {
+				//alert(data);
+				$scope.firstName = data.FirstName;
+				$scope.lastName = data.LastName;
+
+			}).error(function(data) {
+
+				console.error("error in posting");
+			})
+		}
+	});
 </script>
