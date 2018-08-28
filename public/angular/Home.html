@@ -21,7 +21,7 @@
 		<!-- Left Hand Panel  -->
 		<div id="leftForm">
 			<!-- Lib Action  -->
-			<div class="changeLibrary" ng-controller="changeLib">
+			<div class="changeLibrary" ng-controller="changeLib" data-ng-init="getLib()">
 				<fieldset>
 					<legend>
 						<b align="center">Change Library</b>
@@ -29,7 +29,10 @@
 					<form>
 						<select name="ChangeActiveLibrary">
 							<option selected="yes">All</option>
-						</select> <br /> <br /> New Name: <input type="text" name="newname">
+							<option>{{firstName}}</option>
+							<option>{{lastName}}</option>
+							<option>{{sex}}</option>
+						</select> <br /> <br /> New Name: <input type="text" ng-model="newname">
 						<br /> <br />
 						<button type="submit" ng-click="Rename_Active_Library()">Rename
 							Active Library</button>
@@ -124,19 +127,21 @@
 		}
 	});
 
-	app.controller('ChangeLib', function($scope, $http) {
-		$scope.getName = function() {
-
-			$scope.firstName = "";
+	app.controller('changeLib', function($scope, $http) {
+		$scope.getLib = function() {
+			/* var data = {
+					newname : $scope.newname,
+				} */
+ 			$scope.firstName = "";
 			$scope.lastName = "";
-			//Get Logged in user firstname and last name
+			$scope.sex = "";
+ 			//Get Logged in user firstname and last name
 			$http.get('/getUserDetails').success(function(data) {
 				//alert(data);
 				$scope.firstName = data.FirstName;
 				$scope.lastName = data.LastName;
-
+				$scope.sex = data.Sex;
 			}).error(function(data) {
-
 				console.error("error in posting");
 			})
 		}
